@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using DevEncurtaUrl.Api.Models;
 using DevEncurtaUrl.Api.Entities;
 using DevEncurtaUrl.Api.Persistence;
+using Serilog;
 
 namespace DevEncurtaUrl.Api.Controllers
 {
@@ -24,6 +25,7 @@ namespace DevEncurtaUrl.Api.Controllers
         [HttpGet]
         public IActionResult Get()
         {
+            Log.Information("Listagem foi chamada!!!");
             return Ok(_context.Links);
         }
 
@@ -40,6 +42,15 @@ namespace DevEncurtaUrl.Api.Controllers
             return Ok(link);
         }
 
+        /// <summary>
+        /// Cadastrar um link encurtado
+        /// </summary>
+        /// <remarks>
+        /// { "title": "GitHub-Wenderson", "destinationLink" : "https://github.com/wenderson1" }
+        /// </remarks>
+        /// <param name="model">Dados de link</param>
+        /// <returns>Objeto recém-criado</returns>
+        /// <response code="201">Sucesso!</response>
         [HttpPost]
         public IActionResult Post(AddOrUpdateShortenedLinkModel model)
         {
